@@ -14,6 +14,10 @@ const $studentListItems = $(".student-list").children("li");
 // The page div - we will append the pagination links as a child of this
 const $page = $(".page");
 
+// Create the pagination list
+const $paginationLinksOL = $("<ol></ol>");
+$paginationLinksOL.addClass("paginationLinksList")
+
 
 console.log("The student list is: " + $studentListItems.length + " long");
 
@@ -27,6 +31,9 @@ function show(rangeStart, rangeEnd)
 {
     // Clear the list
     $studentList.empty();
+    // Clear the ordered list
+   // $paginationLinksOL.empty();
+    
     
     // Loop through the student list items
     for(let i = rangeStart; i <= rangeEnd; i++)
@@ -35,7 +42,7 @@ function show(rangeStart, rangeEnd)
          $studentList.append($studentListItems[i]);
     }
     
-    createPaginationLinks($studentListItems.length);
+
     
 }
 
@@ -50,17 +57,46 @@ function createPaginationLinks(listCount)
     const pagListCount = Math.ceil(listCount / 10);
     console.log("Going to make " + pagListCount + " pages");
     
-    // Create the pagination list
-    const $paginationLinksOL = $("<ol></ol>");
-    $paginationLinksOL.addClass("paginationLinksList")
-     
+    // init the lower higher ranges
+    const ranges = [];
+    
+    let lower = 0;
+    let higher = 10;
+    
+    // Loop through creating an li and adding an event listener to it.
     for (let i = 0; i < pagListCount; i++)
     {
-        const li = $("<li>" + i + "</li>");
-        $paginationLinksOL.append(li)
+        // Create the li
+        const $li = $("<li>" + i + "</li>");
+        
+        // Add a click listener for each li in the ol
+        $($li).on("click", function(event)
+        {
+            const pageIndex =  event.target.innerHTML
+            console.log("Adding event listener: " + lower + " " + higher);
+            console.log("page index: " + pageIndex);
+            
+            show(ranges[pageIndex][0], ranges[pageIndex][1]);
+
+        });
+
+        // Append the li to the ol
+        $paginationLinksOL.append($li);
+        
+        // Push an array of range values onto the array
+        ranges.push(
+            [lower, higher]
+        );
+        
+       // Increment the ranges
+        lower+=10;
+        higher+=10;
+        console.log("Incrementing range to " + lower + " " + higher);
+
     }
     
-    
+    console.log(ranges);    
+    // Append the ordered list to the page div
     $page.append($paginationLinksOL);
 }
 
@@ -73,8 +109,9 @@ function createPaginationLinks(listCount)
 
 // MAIN 
 
-show(50, 54);
+show(0, 10);
 
-
+// Once we filter the list show the pagination links
+createPaginationLinks($studentListItems.length);
 
 
