@@ -144,3 +144,51 @@ body{
 
 }
 
+/*Seach Box styling*/
+
+.searchBox
+{
+    float: right;
+    margin-bottom: 20px;
+    margin-right: 3px;
+    padding: 10px;
+    box-shadow: 1x 1x 3px #999;
+    border-radius: 5px;
+    background-color: white;
+    
+}
+
+.searchBox:hover
+{
+    float: right;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-shadow: 1x 1x 3px #999;
+    border-radius: 5px;
+    background-color: rgba(100,100,100,0.1);
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

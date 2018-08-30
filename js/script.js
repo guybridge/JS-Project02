@@ -16,6 +16,7 @@ const $page = $(".page");
 
 // Create the pagination list
 const $paginationLinksOL = $("<ol></ol>");
+// Add a class to it so we can style the list
 $paginationLinksOL.addClass("paginationLinksList")
 
 
@@ -26,30 +27,23 @@ console.log("The student list is: " + $studentListItems.length + " long");
 // Tip: Keep in mind that with a list of 54 studetns, the last page will only display four
 
 // show a range of list items
-// 
 function show(rangeStart, rangeEnd)
 {
     // Clear the list
     $studentList.empty();
-    // Clear the ordered list
-   // $paginationLinksOL.empty();
-    
     
     // Loop through the student list items
-    for(let i = rangeStart; i <= rangeEnd; i++)
+    for(let i = rangeStart; i < rangeEnd; i++)
     {
          console.log("Showing items from: " + rangeStart + " to " + rangeEnd);
          $studentList.append($studentListItems[i]);
     }
-    
-
-    
 }
 
 // Create and append the pagination links - Creating a function that can do this is a good approach
 
 // Create a list of pagination links
-// Takes the whole list size as an arg
+// Takes the list size as an arg
 function createPaginationLinks(listCount)
 {
     // The amount of pages to make
@@ -57,14 +51,13 @@ function createPaginationLinks(listCount)
     const pagListCount = Math.ceil(listCount / 10);
     console.log("Going to make " + pagListCount + " pages");
     
-    // init the lower higher ranges
+    // init the lower higher ranges array
     const ranges = [];
-    
     let lower = 0;
     let higher = 10;
     
     // Loop through creating an li and adding an event listener to it.
-    for (let i = 0; i < pagListCount; i++)
+    for (let i = 1; i <= pagListCount; i++)
     {
         // Create the li
         const $li = $("<li>" + i + "</li>");
@@ -72,10 +65,11 @@ function createPaginationLinks(listCount)
         // Add a click listener for each li in the ol
         $($li).on("click", function(event)
         {
-            const pageIndex =  event.target.innerHTML
+            // Get the page html number as the index for the array
+            const pageIndex =  event.target.innerHTML - 1;
             console.log("Adding event listener: " + lower + " " + higher);
             console.log("page index: " + pageIndex);
-            
+            // Show the page ranges
             show(ranges[pageIndex][0], ranges[pageIndex][1]);
 
         });
@@ -100,12 +94,32 @@ function createPaginationLinks(listCount)
     $page.append($paginationLinksOL);
 }
 
+function createSearchBox()
+{
+    // Create the search box
+    const $searchBox = $('<input type="text">');
+    $searchBox.addClass("searchBox");
+    $page.prepend($searchBox);
+    
+    // Create the button
+    const $searchButton = $("<button type='button'>Search</button>");
+    $searchButton.addClass("searchBox");
+    $page.prepend($searchButton);
+    
+    // Add the listener
+    $($searchButton).on("click", function()
+    {
+        runSearch( $($searchBox).val() );
+    });
+}
 
-
-// Add functionality to the pagination buttons so that they show and hide the correct items
-// Tip: If you created a function above to show/hide list items, it could be helpful here
-
-
+function runSearch(query)
+{
+    for (let i = 0; i < $studentListItems.length; i++)
+    {
+        console.log($($studentListItems[i]).children("li"));
+    }
+}
 
 // MAIN 
 
@@ -113,5 +127,7 @@ show(0, 10);
 
 // Once we filter the list show the pagination links
 createPaginationLinks($studentListItems.length);
+
+createSearchBox();
 
 
