@@ -50,10 +50,18 @@ function createPaginationLinks(listCount)
     const pagListCount = Math.ceil(listCount / 10);
     console.log("Going to make " + pagListCount + " pages");
     
-    const pagUl = $("ul");
+    // Create the pagination list
+    const $paginationLinksOL = $("<ol></ol>");
+    $paginationLinksOL.addClass("paginationLinksList")
+     
+    for (let i = 0; i < pagListCount; i++)
+    {
+        const li = $("<li>" + i + "</li>");
+        $paginationLinksOL.append(li)
+    }
     
     
-    $page.append($paginationLinks);
+    $page.append($paginationLinksOL);
 }
 
 

@@ -117,3 +117,30 @@ body{
       background-color: #4ba6c3;
       color: #fff;
     }
+
+/*Pagination list styles*/
+
+.paginationLinksList li
+{
+    float: none;
+    display: inline-block;
+    text-align: center;
+    padding: 20px;
+    width: 10px;
+}
+
+.paginationLinksList li:hover
+{
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+.paginationLinksList
+{
+    margin-top: 50px;
+    text-align: center;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 1px 1px 3px #999;
+
+}
+
