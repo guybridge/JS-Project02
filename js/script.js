@@ -117,7 +117,7 @@ function runSearch(query)
 {
     for (let i = 0; i < $studentListItems.length; i++)
     {
-        console.log($($studentListItems[i]).children("li"));
+        console.log($($studentListItems[i]).children("h3"));
     }
 }
 
