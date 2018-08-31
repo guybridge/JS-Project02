@@ -163,17 +163,18 @@ function runSearch(query)
             
         }
         
+        // If the results is greater than 0, then add the resultsView
         if(resultCount > 0)
         {
             addResultsView();
             setResultsCount(resultCount);
             
-        }
+        } // If we didn't find anything then set the count to 0
         else{
             addResultsView();
             setResultsCount(0);
         }
-        
+        // Reset the count
         resultsCount = 0;
     }
    
