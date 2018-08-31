@@ -112,6 +112,7 @@ function createSearchBox()
     {
         runSearch( $($searchBox).val() );
     });
+    
 }
 
 // Show the results number
@@ -176,7 +177,11 @@ function runSearch(query)
         }
         // Reset the count
         resultsCount = 0;
+        
+        $(".searchBox").val("");
     }
+    
+    
    
 }
 
