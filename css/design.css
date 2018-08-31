@@ -169,7 +169,11 @@ body{
     
 }
 
-
+/*Results search box style*/
+.resultsView
+{
+    padding: 10px;
+    text-align: center;}
 
 
 

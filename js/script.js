@@ -94,6 +94,7 @@ function createPaginationLinks(listCount)
     $page.append($paginationLinksOL);
 }
 
+// Create the searchBox and button
 function createSearchBox()
 {
     // Create the search box
@@ -106,28 +107,85 @@ function createSearchBox()
     $searchButton.addClass("searchBox");
     $page.prepend($searchButton);
     
-    // Add the listener
+    // Add the listener for the search button
     $($searchButton).on("click", function()
     {
         runSearch( $($searchBox).val() );
     });
 }
 
+// Show the results number
+function setResultsCount(numResults)
+{
+    $(".resultsView").text(numResults + " results");
+}
+
+// Add the results view
+function addResultsView()
+{
+     // Create the results view
+    const $resultsNum = $("<h2>Sorry, no results</h2>");
+    $resultsNum.addClass("resultsView");
+    $studentList.prepend($resultsNum);
+}
+
+// Run the query
 function runSearch(query)
 {
-    for (let i = 0; i < $studentListItems.length; i++)
+    
+    // Check for null input
+    if(query !== "")
     {
-        console.log($($studentListItems[i]).children("h3"));
+        // Clear the list
+        $studentList.empty();
+        // Add a results counter
+        let resultCount = 0;
+        // Loop through the students and check for a match
+        for (let i = 0; i < $studentListItems.length; i++)
+        {
+                // Store the persons name 
+                const personName = $studentListItems[i].children[0].children[1].innerHTML;
+                // Store the email address
+                const personEmail =
+                      $studentListItems[i].children[0].children[2].innerHTML;
+                // If the persons name matches
+                console.log("Check person name: " + personName);
+                if(personName.toLowerCase().includes(query.toLowerCase())
+                  || personEmail.toLowerCase().includes(query.toLowerCase()))
+                {
+                    console.log("query: " + query + " matches: " + personName);
+                    $studentList.append($studentListItems[i]);
+                    
+                    // Increment results counter
+                    resultCount++
+                }
+            
+            
+        }
+        
+        if(resultCount > 0)
+        {
+            addResultsView();
+            setResultsCount(resultCount);
+            
+        }
+        else{
+            addResultsView();
+            setResultsCount(0);
+        }
+        
+        resultsCount = 0;
     }
+   
 }
 
 // MAIN 
-
 show(0, 10);
 
 // Once we filter the list show the pagination links
 createPaginationLinks($studentListItems.length);
 
+// Add the search box to the page
 createSearchBox();
 
 
