@@ -16,9 +16,9 @@ const $page = $(".page");
 
 // Create the pagination list
 const $paginationLinksOL = $("<ol></ol>");
-// Add a class to it so we can style the list
-$paginationLinksOL.addClass("paginationLinksList")
 
+// Add a class to it so we can style the list
+$paginationLinksOL.addClass("paginationLinksList");
 
 console.log("The student list is: " + $studentListItems.length + " long");
 
@@ -46,6 +46,7 @@ function show(rangeStart, rangeEnd)
 // Takes the list size as an arg
 function createPaginationLinks(listCount)
 {
+    $paginationLinksOL.empty();
     // The amount of pages to make
     // Round up using Math.ceil
     const pagListCount = Math.ceil(listCount / 10);
@@ -175,10 +176,16 @@ function runSearch(query)
             addResultsView();
             setResultsCount(0);
         }
+    
+        createPaginationLinks(resultCount);
+
+        
         // Reset the count
         resultsCount = 0;
         
         $(".searchBox").val("");
+        
+        
     }
     
     
